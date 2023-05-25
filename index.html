@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" href="favicon.ico">
+  <title>2進数表示</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #binaryDisplay {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      height: 100vh;
+      overflow: auto;
+      font-family: monospace;
+      font-size: 24px;
+      padding: 10px;
+    }
+
+    .binaryDigit {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="binaryDisplay"></div>
+
+  <script>
+    var count = 0;
+    var binaryDisplay = document.getElementById("binaryDisplay");
+
+    function startBinaryCount() {
+      var binary = decToBinary(count);
+      var binaryElement = document.createElement("span");
+      binaryElement.className = "binaryDigit";
+      binaryElement.innerHTML = binary;
+      binaryDisplay.appendChild(binaryElement);
+
+      count++;
+
+      if (count <= 255) { // 表示する範囲を指定する場合、ここを調整
+        setTimeout(startBinaryCount, 10); // 表示の間隔（ミリ秒）
+      }
+    }
+
+    function decToBinary(number) {
+      var binary = (number >>> 0).toString(2); // 2進数に変換
+      var padding = "00000000000000000000"; // 8桁の0でパディング
+
+      return (padding + binary).slice(-20);
+    }
+
+    startBinaryCount();
+  </script>
+</body>
+</html>
